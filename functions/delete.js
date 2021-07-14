@@ -12,6 +12,7 @@ module.exports = {
             if (input.collection == "task") {
                 input.item.forEach(async(el) => {
                     let task = await axios.get(`http://localhost:8055/items/task/${el}`);
+                    console.log("Task", task)
                     task = task.data.data
                     client.autopilot.assistants(autopilotSid)
                         .tasks(task.sid)
