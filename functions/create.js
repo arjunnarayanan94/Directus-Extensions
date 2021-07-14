@@ -8,6 +8,7 @@ const client = require('twilio')(accountSid, authToken);
 module.exports = {
     item: async(input) => {
         console.log("Create")
+        console.log(autopilotSid)
         try {
             if (input.collection == "task") {
                 client.autopilot.assistants(autopilotSid)
