@@ -18,7 +18,7 @@ module.exports = function registerHook() {
             let r = await delet.item(input)
             console.log("Inside1")
             let m = await model.train()
-            console.log("Inside2")
+            console.log(r)
             return r
         },
     }
