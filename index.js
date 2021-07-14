@@ -16,7 +16,9 @@ module.exports = function registerHook() {
         },
         'items.delete.before': async(input) => {
             let r = await delet.item(input)
+            console.log("Inside1")
             let m = await model.train()
+            console.log("Inside2")
             return r
         },
     }
