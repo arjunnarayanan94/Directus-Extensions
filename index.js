@@ -4,6 +4,7 @@ const delet = require('./functions/delete')
 const model = require('./functions/model')
 
 module.exports = function registerHook() {
+    const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
     return {
         'items.create': async(input) => {
             await create.item(input)
@@ -16,10 +17,9 @@ module.exports = function registerHook() {
         },
         'items.delete.before': async(input) => {
             let r = await delet.item(input)
-            console.log("Inside1")
             let m = await model.train()
-            console.log(r)
-            return r
+            await delay(2000)
+            return input
         },
     }
 };

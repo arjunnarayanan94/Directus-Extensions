@@ -12,7 +12,6 @@ module.exports = {
             if (input.collection == "task") {
                 input.item.forEach(async(el) => {
                     let task = await axios.get(`http://localhost:8055/items/task/${el}`);
-                    console.log("Task", task)
                     task = task.data.data
                     client.autopilot.assistants(autopilotSid)
                         .tasks(task.sid)
@@ -22,11 +21,9 @@ module.exports = {
                 input.item.forEach(async(el) => {
                     let sample = await axios.get(`http://localhost:8055/items/sample/${el}`);
                     sample = sample.data.data
-                    console.log("Inside 1")
                     console.log(sample)
                     let task = await axios.get(`http://localhost:8055/items/task/${sample.task}`);
                     task = task.data.data
-                    console.log("Inside 2")
                     console.log(task)
                     client.autopilot.assistants(autopilotSid)
                         .tasks(task.sid)
