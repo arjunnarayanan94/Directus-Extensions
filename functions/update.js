@@ -10,12 +10,10 @@ module.exports = {
         console.log("Update ", input);
         return new Promise(async(resolve, reject) => {
             try {
-                if (input.collection == "task") {
+                if (input.collection.toLowerCase() == "task") {
                     input.keys
                         .forEach(async(el) => {
-                            let task = await axios.get(
-                                `${process.env.DIRECTUS}/items/task/${el}`
-                            );
+                            let task = await axios.get("task", el);
                             task = task.data.data;
                             client.autopilot
                                 .assistants(autopilotSid)
@@ -34,17 +32,12 @@ module.exports = {
                         .catch((err) => {
                             reject(err);
                         });
-                } else if (input.collection == "sample") {
+                } else if (input.collection.toLowerCase() == "sample") {
                     input.keys.forEach(async(el) => {
-                        let sample = await axios.get(
-                            `${process.env.DIRECTUS}/items/sample/${el}`
-                        );
+                        let sample = await axios.get("sample", el);
                         sample = sample.data.data;
-                        let task = await axios.get(
-                            `${process.env.DIRECTUS}/items/task/${sample.task}`
-                        );
+                        let task = await axios.get("task", sample.task);
                         task = task.data.data;
-                        console.log("lang = ", input.payload.lang);
                         client.autopilot
                             .assistants(autopilotSid)
                             .tasks(task.sid)

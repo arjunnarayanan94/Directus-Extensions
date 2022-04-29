@@ -1,4 +1,4 @@
-const axios = require("axios");
+const { get } = require("../directus/api");
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -10,11 +10,9 @@ module.exports = {
         console.log("Delete ", input);
         return new Promise(async(resolve, reject) => {
             try {
-                if (input.collection == "task") {
+                if (input.collection.toLowerCase() == "task") {
                     keys.forEach(async(el) => {
-                        let task = await axios.get(
-                            `${process.env.DIRECTUS}/items/task/${el}`
-                        );
+                        let task = await get("task", el);
                         task = task.data.data;
                         client.autopilot
                             .assistants(autopilotSid)
@@ -25,15 +23,11 @@ module.exports = {
                                 reject(err);
                             });
                     });
-                } else if (input.collection == "sample") {
+                } else if (input.collection.toLowerCase() == "sample") {
                     keys.forEach(async(el) => {
-                        let sample = await axios.get(
-                            `${process.env.DIRECTUS}/items/sample/${el}`
-                        );
+                        let sample = await get("sample", el);
                         sample = sample.data.data;
-                        let task = await axios.get(
-                            `${process.env.DIRECTUS}/items/task/${sample.task}`
-                        );
+                        let task = await axios.get("task", sample.task);
                         task = task.data.data;
                         client.autopilot
                             .assistants(autopilotSid)
