@@ -27,7 +27,7 @@ module.exports = {
                     keys.forEach(async(el) => {
                         let sample = await get("sample", el);
                         sample = sample.data.data;
-                        let task = await axios.get("task", sample.task);
+                        let task = await get("task", sample.task);
                         task = task.data.data;
                         client.autopilot
                             .assistants(autopilotSid)

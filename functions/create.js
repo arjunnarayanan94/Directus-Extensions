@@ -27,9 +27,7 @@ module.exports = {
                             reject(err);
                         });
                 } else if (input.collection.toLowerCase() == "sample") {
-                    let task = await axios.get(
-                        `${process.env.DIRECTUS}/items/task/${input.payload.task}`
-                    );
+                    let task = await get("task", input.payload.task);
                     task = task.data.data;
                     client.autopilot
                         .assistants(autopilotSid)

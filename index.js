@@ -7,7 +7,7 @@ require("dotenv").config();
 module.exports = ({ filter, action }, { exceptions }) => {
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
     action("items.create", async(input) => {
-        await create(input);
+        let cr = await create(input);
         return input;
     });
 
