@@ -26,7 +26,7 @@ module.exports = {
                         .catch((err) => {
                             reject(err);
                         });
-                } else if (input.collection.toLowerCase() == "Sample") {
+                } else if (input.collection.toLowerCase() == "sample") {
                     let task = await axios.get(
                         `${process.env.DIRECTUS}/items/task/${input.payload.task}`
                     );
