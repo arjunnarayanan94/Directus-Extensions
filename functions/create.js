@@ -1,4 +1,4 @@
-const { patch } = require("../directus/api");
+const {get, patch } = require("../directus/api");
 
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -28,7 +28,6 @@ module.exports = {
                         });
                 } else if (input.collection.toLowerCase() == "sample") {
                     let task = await get("task", input.payload.task);
-                    task = task.data.data;
                     client.autopilot
                         .assistants(autopilotSid)
                         .tasks(task.sid)

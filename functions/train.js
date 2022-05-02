@@ -5,7 +5,6 @@ const client = require("twilio")(accountSid, authToken);
 
 module.exports = {
     train: async() => {
-        console.log("Train ", input);
         client.autopilot
             .assistants(autopilotSid)
             .modelBuilds.create()

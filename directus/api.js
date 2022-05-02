@@ -15,26 +15,26 @@ module.exports = {
             },
             data: data,
         };
-
-        axios(config)
-            .then(function(response) {
-                console.log(JSON.stringify(response.data));
-            })
-            .catch(function(error) {
-                console.log(error);
-            });
+        return new Promise((resolve, reject) => {
+            axios(config)
+                .then(function(response) {
+                    resolve(response.data);
+                })
+                .catch(function(error) {
+                    reject(error);
+                });
+        });
     },
 
     get: async(type, key) => {
+        var config = {
+            method: "get",
+            url: `${process.env.DIRECTUS}/items/${type}/${key}`,
+            headers: {
+                Authorization: `Bearer ${process.env.DIRECTUS_TOKEN}`,
+            },
+        };
         return new Promise((resolve, reject) => {
-            var config = {
-                method: "get",
-                url: `${process.env.DIRECTUS}/items/${type}/${key}`,
-                headers: {
-                    Authorization: `Bearer ${process.env.DIRECTUS_TOKEN}`,
-                },
-            };
-
             axios(config)
                 .then(function(response) {
                     resolve(response.data.data);

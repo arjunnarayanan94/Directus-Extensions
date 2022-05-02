@@ -13,7 +13,6 @@ module.exports = {
                 if (input.collection.toLowerCase() == "task") {
                     keys.forEach(async(el) => {
                         let task = await get("task", el);
-                        task = task.data.data;
                         client.autopilot
                             .assistants(autopilotSid)
                             .tasks(task.sid)
@@ -26,9 +25,7 @@ module.exports = {
                 } else if (input.collection.toLowerCase() == "sample") {
                     keys.forEach(async(el) => {
                         let sample = await get("sample", el);
-                        sample = sample.data.data;
                         let task = await get("task", sample.task);
-                        task = task.data.data;
                         client.autopilot
                             .assistants(autopilotSid)
                             .tasks(task.sid)

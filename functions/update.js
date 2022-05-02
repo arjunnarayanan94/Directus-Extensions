@@ -14,7 +14,7 @@ module.exports = {
                     input.keys
                         .forEach(async(el) => {
                             let task = await axios.get("task", el);
-                            task = task.data.data;
+
                             client.autopilot
                                 .assistants(autopilotSid)
                                 .tasks(task.sid)
@@ -35,9 +35,7 @@ module.exports = {
                 } else if (input.collection.toLowerCase() == "sample") {
                     input.keys.forEach(async(el) => {
                         let sample = await axios.get("sample", el);
-                        sample = sample.data.data;
                         let task = await axios.get("task", sample.task);
-                        task = task.data.data;
                         client.autopilot
                             .assistants(autopilotSid)
                             .tasks(task.sid)
