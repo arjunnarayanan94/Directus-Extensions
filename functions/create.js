@@ -8,7 +8,7 @@ const client = require("twilio")(accountSid, authToken);
 module.exports = {
     create: async(input) => {
         console.log("Create ", input);
-        return new Promise(async(resolve, reject) => {
+        return new Promise(async(reject) => {
             try {
                 if (input.collection.toLowerCase() == "task") {
                     client.autopilot
