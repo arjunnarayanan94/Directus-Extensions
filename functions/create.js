@@ -33,8 +33,6 @@ module.exports = {
                         })
                         .then((sample) => patch("sample", input.key, sample.sid))
                         .catch((err) => reject(err));
-                } else {
-                    resolve(input);
                 }
             } catch (err) {
                 console.log(err);
