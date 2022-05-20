@@ -15,11 +15,7 @@ module.exports = {
                         .assistants(autopilotSid)
                         .tasks.create({
                             friendlyName: input.payload.title,
-                            actions: {
-                                actions: [{
-                                    say: input.payload.reply,
-                                }, ],
-                            },
+                            actions: input.payload.reply,
                             uniqueName: input.payload.title,
                         })
                         .then((task) => patch("task", input.key, task.sid))
