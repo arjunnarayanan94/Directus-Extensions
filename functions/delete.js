@@ -36,11 +36,12 @@ module.exports = {
                                 reject(err);
                             });
                     });
+                } else {
+                    resolve(input);
                 }
             } catch (err) {
                 console.log(err);
             }
-            resolve(input);
         });
     },
 };
