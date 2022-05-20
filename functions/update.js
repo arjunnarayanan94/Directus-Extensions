@@ -19,11 +19,7 @@ module.exports = {
                             .update({
                                 uniqueName: input.payload.title,
                                 friendlyName: input.payload.title,
-                                actions: {
-                                    actions: [{
-                                        say: input.payload.reply,
-                                    }, ],
-                                },
+                                actions: input.payload.reply,
                             })
                             .then((task) => console.log("last task=", task))
                             .catch((err) => {

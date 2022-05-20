@@ -37,6 +37,7 @@ module.exports = {
             } catch (err) {
                 console.log(err);
             }
+            resolve(input);
         });
     },
 };
