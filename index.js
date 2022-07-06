@@ -5,10 +5,28 @@ const { train } = require("./functions/train.js");
 require("dotenv").config();
 
 module.exports = ({ filter, action }, { exceptions }) => {
+    const { InvalidPayloadException } = exceptions;
     const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-    action("items.create", async(input) => {
-        let cr = await create(input);
-        return input;
+    filter("task.items.create", async(input) => {
+        input.collection = "task";
+        await create(input)
+            .then((result) => {
+                return result;
+            })
+            .catch((err) => {
+                throw new InvalidPayloadException(err);
+            });
+    });
+
+    filter("sample.items.create", async(input) => {
+        input.collection = "sample";
+        await create(input)
+            .then((result) => {
+                return result;
+            })
+            .catch((err) => {
+                throw new InvalidPayloadException(err);
+            });
     });
 
     filter("items.delete", async(keys, input) => {

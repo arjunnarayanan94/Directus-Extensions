@@ -8,34 +8,40 @@ const client = require("twilio")(accountSid, authToken);
 module.exports = {
     create: async(input) => {
         console.log("Create ", input);
-        return new Promise(async(reject) => {
+        return new Promise(async(resolve, reject) => {
             try {
                 if (input.collection.toLowerCase() == "task") {
                     client.autopilot
                         .assistants(autopilotSid)
                         .tasks.create({
-                            friendlyName: input.payload.title,
-                            actions: input.payload.reply,
-                            uniqueName: input.payload.title,
+                            friendlyName: input.title,
+                            actions: input.reply,
+                            uniqueName: input.title,
                         })
-                        .then((task) => patch("task", input.key, task.sid))
+                        .then((task) => {
+                            patch("task", input.key, task.sid);
+                            resolve(input);
+                        })
                         .catch((err) => {
                             reject(err);
                         });
                 } else if (input.collection.toLowerCase() == "sample") {
-                    let task = await get("task", input.payload.task);
+                    let task = await get("task", input.task);
                     client.autopilot
                         .assistants(autopilotSid)
                         .tasks(task.sid)
                         .samples.create({
                             language: "en-US",
-                            taggedText: input.payload.sample,
+                            taggedText: input.sample,
                         })
-                        .then((sample) => patch("sample", input.key, sample.sid))
+                        .then((sample) => {
+                            patch("sample", input.key, sample.sid);
+                            resolve(input);
+                        })
                         .catch((err) => reject(err));
                 }
             } catch (err) {
-                console.log(err);
+                reject(err);
             }
         });
     },
